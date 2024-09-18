@@ -1,5 +1,5 @@
 package com.example.biblioteca.model;
 
-public class Livro {
+public class livro {
     
 }

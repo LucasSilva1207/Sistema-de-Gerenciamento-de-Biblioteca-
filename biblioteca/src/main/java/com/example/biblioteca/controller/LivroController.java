@@ -1,5 +1,5 @@
 package com.example.biblioteca.controller;
 
-public class LivroController {
+public class livroController {
     
 }

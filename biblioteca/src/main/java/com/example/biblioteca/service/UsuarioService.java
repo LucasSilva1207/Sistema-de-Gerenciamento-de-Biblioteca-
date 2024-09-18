@@ -1,5 +1,5 @@
 package com.example.biblioteca.service;
 
-public class UsuarioService {
+public class usuarioService {
     
 }
