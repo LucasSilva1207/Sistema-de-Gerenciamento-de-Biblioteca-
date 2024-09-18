@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Empréstimos</title>
+</head>
+<body>
+    <h1>Empréstimos</h1>
+    <a href="/emprestimos/novo">Adicionar Novo Empréstimo</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuário</th>
+                <th>Livro</th>
+                <th>Data do Empréstimo</th>
+                <th>Devolvido</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="emprestimo : ${emprestimos}">
+                <td th:text="${emprestimo.id}"></td>
+                <td th:text="${emprestimo.usuario.nome}"></td>
+                <td th:text="${emprestimo.livro.titulo}"></td>
+                <td th:text="${emprestimo.dataEmprestimo}"></td>
+                <td th:text="${emprestimo.devolvido ? 'Sim' : 'Não'}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
