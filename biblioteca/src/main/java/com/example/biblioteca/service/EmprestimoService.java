@@ -1,9 +1,9 @@
 package com.example.biblioteca.service;
 
-import com.example.biblioteca.model.emprestimo;
-import com.example.biblioteca.model.livro;
-import com.example.biblioteca.model.usuario;
-import com.example.biblioteca.repository.emprestimoRepository;
+import com.example.biblioteca.model.Emprestimo;
+import com.example.biblioteca.model.Livro;
+import com.example.biblioteca.model.Usuario;
+import com.example.biblioteca.repository.EmprestimoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +11,14 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class emprestimoService {
+public class EmprestimoService {
 
     @Autowired
-    private emprestimoRepository emprestimoRepository;
+    private EmprestimoRepository emprestimoRepository;
 
     // Registrar um novo empréstimo
-    public emprestimo registrarEmprestimo(usuario usuario, livro livro) {
-        emprestimo emprestimo = new emprestimo();
+    public Emprestimo registrarEmprestimo(Usuario usuario, Livro livro) {
+        Emprestimo emprestimo = new Emprestimo();
         emprestimo.setUsuario(usuario);
         emprestimo.setLivro(livro);
         emprestimo.setDataEmprestimo(LocalDate.now());
@@ -27,8 +27,8 @@ public class emprestimoService {
     }
 
     // Registrar devolução de um livro      
-    public emprestimo registrarDevolucao(Long idEmprestimo) {
-        emprestimo emprestimo = emprestimoRepository.findById(idEmprestimo).orElse(null);
+    public Emprestimo registrarDevolucao(Long idEmprestimo) {
+        Emprestimo emprestimo = emprestimoRepository.findById(idEmprestimo).orElse(null);
         if (emprestimo != null && !emprestimo.isDevolvido()) {
             emprestimo.setDevolvido(true);
             emprestimo.setDataDevolucao(LocalDate.now());
@@ -38,12 +38,12 @@ public class emprestimoService {
     }
 
     // Listar todos os empréstimos
-    public List<emprestimo> listarTodos() {
+    public List<Emprestimo> listarTodos() {
         return emprestimoRepository.findAll();
     }
 
     // Listar todos os empréstimos ativos
-    public List<emprestimo> listarEmprestimosAtivos() {
+    public List<Emprestimo> listarEmprestimosAtivos() {
         return emprestimoRepository.findByDevolvidoFalse();
     }
 }

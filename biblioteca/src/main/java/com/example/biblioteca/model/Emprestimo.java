@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "emprestimos")
-public class emprestimo {
+public class Emprestimo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,11 +13,11 @@ public class emprestimo {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
-    private usuario usuario;
+    private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "livro_id", nullable = false)
-    private livro livro;
+    private Livro livro;
 
     @Column(nullable = false)
     private LocalDate dataEmprestimo;
@@ -29,9 +29,9 @@ public class emprestimo {
     private boolean devolvido;
 
     // Construtores
-    public emprestimo() {}
+    public Emprestimo() {}
 
-    public emprestimo(usuario usuario, livro livro, LocalDate dataEmprestimo, boolean devolvido) {
+    public Emprestimo(Usuario usuario, Livro livro, LocalDate dataEmprestimo, boolean devolvido) {
         this.usuario = usuario;
         this.livro = livro;
         this.dataEmprestimo = dataEmprestimo;
@@ -47,19 +47,19 @@ public class emprestimo {
         this.id = id;
     }
 
-    public usuario getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(usuario usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
-    public livro getLivro() {
+    public Livro getLivro() {
         return livro;
     }
 
-    public void setLivro(livro livro) {
+    public void setLivro(Livro livro) {
         this.livro = livro;
     }
 

@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "livros")
-public class livro {
+public class Livro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,9 +26,9 @@ public class livro {
     private boolean disponivel;
 
     // Construtores
-    public livro() {}
+    public Livro() {}
 
-    public livro(String titulo, String autor, String isbn, int anoPublicacao, boolean disponivel) {
+    public Livro(String titulo, String autor, String isbn, int anoPublicacao, boolean disponivel) {
         this.titulo = titulo;
         this.autor = autor;
         this.isbn = isbn;

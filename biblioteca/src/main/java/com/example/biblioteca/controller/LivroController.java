@@ -1,7 +1,7 @@
 package com.example.biblioteca.controller;
 
-import com.example.biblioteca.model.livro;
-import com.example.biblioteca.service.livroService;
+import com.example.biblioteca.model.Livro;
+import com.example.biblioteca.service.LivroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,26 +11,26 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/livros")
-public class livroController {
+public class LivroController {
 
     @Autowired
-    private livroService livroService;
+    private LivroService livroService;
 
     @GetMapping
     public String listarLivros(Model model) {
-        List<livro> livros = livroService.listarTodos();
+        List<Livro> livros = livroService.listarTodos();
         model.addAttribute("livros", livros);
         return "livros/listar";
     }
 
     @GetMapping("/novo")
     public String mostrarFormularioCadastro(Model model) {
-        model.addAttribute("livro", new livro());
+        model.addAttribute("livro", new Livro());
         return "livros/formulario";
     }
 
     @PostMapping("/novo")
-    public String cadastrarLivro(@ModelAttribute livro livro) {
+    public String cadastrarLivro(@ModelAttribute Livro livro) {
         livroService.salvarLivro(livro);
         return "redirect:/livros";
     }
