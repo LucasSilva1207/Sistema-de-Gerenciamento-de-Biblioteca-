@@ -29,7 +29,7 @@ public class UsuarioController {
         return "usuarios/formulario";
     }
 
-    @PostMapping("/novo")
+    @PostMapping("/novoUsuario")
     public String cadastrarUsuario(@ModelAttribute Usuario usuario) {
         usuarioService.salvarUsuario(usuario);
         return "redirect:/usuarios";

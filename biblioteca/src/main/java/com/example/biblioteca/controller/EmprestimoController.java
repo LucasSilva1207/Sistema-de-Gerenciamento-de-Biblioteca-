@@ -11,9 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/emprestimos")
@@ -28,36 +27,23 @@ public class EmprestimoController {
     @Autowired
     private LivroService livroService;
 
-    @GetMapping
-    public String listarEmprestimos(Model model) {
-        List<Emprestimo> emprestimos = emprestimoService.listarTodos();
-        model.addAttribute("emprestimos", emprestimos);
-        return "emprestimos/listar";
-    }
-
     @GetMapping("/novo")
     public String mostrarFormularioCadastro(Model model) {
         List<Usuario> usuarios = usuarioService.listarTodos();
         List<Livro> livros = livroService.listarTodos();
+        
         model.addAttribute("emprestimo", new Emprestimo());
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("livros", livros);
+        
         return "emprestimos/formulario";
     }
 
     @PostMapping("/novo")
-    public String cadastrarEmprestimo(@RequestParam Long usuarioId,
-                                      @RequestParam Long livroId) {
-        Optional<Usuario> usuarioOptional = usuarioService.buscarPorId(usuarioId);
-        Optional<Livro> livroOptional = livroService.buscarPorId(livroId);
-
-        if (usuarioOptional.isPresent() && livroOptional.isPresent()) {
-            Usuario usuario = usuarioOptional.get();
-            Livro livro = livroOptional.get();
-
-            emprestimoService.registrarEmprestimo(usuario, livro);
-        }
-
+    public String cadastrarEmprestimo(@ModelAttribute Emprestimo emprestimo) {
+        emprestimo.setDataEmprestimo(LocalDate.now());
+        emprestimo.setDevolvido(false);
+        emprestimoService.salvarEmprestimo(emprestimo);
         return "redirect:/emprestimos";
     }
 }
