@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuario {
+public class usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +26,12 @@ public class Usuario {
     private TipoUsuario tipo;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Emprestimo> emprestimos = new HashSet<>();
+    private Set<emprestimo> emprestimos = new HashSet<>();
 
     // Construtores
-    public Usuario() {}
+    public usuario() {}
 
-    public Usuario(String nome, String email, String senha, TipoUsuario tipo) {
+    public usuario(String nome, String email, String senha, TipoUsuario tipo) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -79,11 +79,11 @@ public class Usuario {
         this.tipo = tipo;
     }
 
-    public Set<Emprestimo> getEmprestimos() {
+    public Set<emprestimo> getEmprestimos() {
         return emprestimos;
     }
 
-    public void setEmprestimos(Set<Emprestimo> emprestimos) {
+    public void setEmprestimos(Set<emprestimo> emprestimos) {
         this.emprestimos = emprestimos;
     }
 
@@ -94,13 +94,13 @@ public class Usuario {
     }
 
     // Adiciona um empréstimo
-    public void adicionarEmprestimo(Emprestimo emprestimo) {
+    public void adicionarEmprestimo(emprestimo emprestimo) {
         emprestimos.add(emprestimo);
         emprestimo.setUsuario(this);
     }
 
     // Remove um empréstimo
-    public void removerEmprestimo(Emprestimo emprestimo) {
+    public void removerEmprestimo(emprestimo emprestimo) {
         emprestimos.remove(emprestimo);
         emprestimo.setUsuario(null);
     }

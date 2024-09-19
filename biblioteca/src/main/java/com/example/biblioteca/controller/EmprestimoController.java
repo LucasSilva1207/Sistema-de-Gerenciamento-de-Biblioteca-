@@ -1,61 +1,59 @@
 package com.example.biblioteca.controller;
 
-import com.example.biblioteca.model.Emprestimo;
-import com.example.biblioteca.model.Livro;
-import com.example.biblioteca.model.Usuario;
-import com.example.biblioteca.service.EmprestimoService;
-import com.example.biblioteca.service.LivroService;
-import com.example.biblioteca.service.UsuarioService;
+import com.example.biblioteca.model.emprestimo;
+import com.example.biblioteca.model.livro;
+import com.example.biblioteca.model.usuario;
+import com.example.biblioteca.service.emprestimoService;
+import com.example.biblioteca.service.livroService;
+import com.example.biblioteca.service.usuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/emprestimos")
-public class EmprestimoController {
+public class emprestimoController {
 
     @Autowired
-    private EmprestimoService emprestimoService;
+    private emprestimoService emprestimoService;
 
     @Autowired
-    private UsuarioService usuarioService;
+    private usuarioService usuarioService;
 
     @Autowired
-    private LivroService livroService;
+    private livroService livroService;
 
     @GetMapping
     public String listarEmprestimos(Model model) {
-        List<Emprestimo> emprestimos = emprestimoService.listarTodos();
+        List<emprestimo> emprestimos = emprestimoService.listarTodos();
         model.addAttribute("emprestimos", emprestimos);
         return "emprestimos/listar";
     }
 
     @GetMapping("/novo")
     public String mostrarFormularioCadastro(Model model) {
-        List<Usuario> usuarios = usuarioService.listarTodosUsuarios();
-        List<Livro> livros = livroService.listarTodosLivros();
-        model.addAttribute("emprestimo", new Emprestimo());
+        List<usuario> usuarios = usuarioService.listarTodos();
+        List<livro> livros = livroService.listarTodos();
+        model.addAttribute("emprestimo", new emprestimo());
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("livros", livros);
         return "emprestimos/formulario";
     }
 
     @PostMapping("/novo")
-    public String cadastrarEmprestimo(@ModelAttribute Emprestimo emprestimo,
-                                      @RequestParam Long usuarioId,
+    public String cadastrarEmprestimo(@RequestParam Long usuarioId,
                                       @RequestParam Long livroId) {
-        Usuario usuario = usuarioService.buscarUsuarioPorId(usuarioId);
-        Livro livro = livroService.buscarLivroPorId(livroId);
+        Optional<usuario> usuarioOptional = usuarioService.buscarPorId(usuarioId);
+        Optional<livro> livroOptional = livroService.buscarPorId(livroId);
 
-        if (usuario != null && livro != null) {
-            emprestimo.setUsuario(usuario);
-            emprestimo.setLivro(livro);
-            emprestimo.setDataEmprestimo(LocalDate.now());
-            emprestimo.setDevolvido(false);
+        if (usuarioOptional.isPresent() && livroOptional.isPresent()) {
+            usuario usuario = usuarioOptional.get();
+            livro livro = livroOptional.get();
 
             emprestimoService.registrarEmprestimo(usuario, livro);
         }

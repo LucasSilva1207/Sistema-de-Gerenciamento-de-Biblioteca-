@@ -1,12 +1,10 @@
 package com.example.biblioteca.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "livros")
-public class Livro {
+public class livro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,23 +16,24 @@ public class Livro {
     @Column(nullable = false)
     private String autor;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String isbn;
 
     @Column(nullable = false)
     private int anoPublicacao;
 
-    @OneToMany(mappedBy = "livro", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Emprestimo> emprestimos = new HashSet<>();
+    @Column(nullable = false)
+    private boolean disponivel;
 
     // Construtores
-    public Livro() {}
+    public livro() {}
 
-    public Livro(String titulo, String autor, String isbn, int anoPublicacao) {
+    public livro(String titulo, String autor, String isbn, int anoPublicacao, boolean disponivel) {
         this.titulo = titulo;
         this.autor = autor;
         this.isbn = isbn;
         this.anoPublicacao = anoPublicacao;
+        this.disponivel = disponivel;
     }
 
     // Getters e Setters
@@ -78,23 +77,11 @@ public class Livro {
         this.anoPublicacao = anoPublicacao;
     }
 
-    public Set<Emprestimo> getEmprestimos() {
-        return emprestimos;
+    public boolean isDisponivel() {
+        return disponivel;
     }
 
-    public void setEmprestimos(Set<Emprestimo> emprestimos) {
-        this.emprestimos = emprestimos;
-    }
-
-    // Adiciona um empréstimo
-    public void adicionarEmprestimo(Emprestimo emprestimo) {
-        emprestimos.add(emprestimo);
-        emprestimo.setLivro(this);
-    }
-
-    // Remove um empréstimo
-    public void removerEmprestimo(Emprestimo emprestimo) {
-        emprestimos.remove(emprestimo);
-        emprestimo.setLivro(null);
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
     }
 }

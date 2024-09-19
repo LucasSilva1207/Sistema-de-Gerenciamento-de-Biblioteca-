@@ -1,7 +1,7 @@
 package com.example.biblioteca.controller;
 
-import com.example.biblioteca.model.Usuario;
-import com.example.biblioteca.service.UsuarioService;
+import com.example.biblioteca.model.usuario;
+import com.example.biblioteca.service.usuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,27 +11,27 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/usuarios")
-public class UsuarioController {
+public class usuarioController {
 
     @Autowired
-    private UsuarioService usuarioService;
+    private usuarioService usuarioService;
 
     @GetMapping
     public String listarUsuarios(Model model) {
-        List<Usuario> usuarios = usuarioService.listarTodosUsuarios();
+        List<usuario> usuarios = usuarioService.listarTodos();
         model.addAttribute("usuarios", usuarios);
         return "usuarios/listar";
     }
 
     @GetMapping("/novo")
     public String mostrarFormularioCadastro(Model model) {
-        model.addAttribute("usuario", new Usuario());
+        model.addAttribute("usuario", new usuario());
         return "usuarios/formulario";
     }
 
     @PostMapping("/novo")
-    public String cadastrarUsuario(@ModelAttribute Usuario usuario) {
-        usuarioService.criarUsuario(usuario);
+    public String cadastrarUsuario(@ModelAttribute usuario usuario) {
+        usuarioService.salvarUsuario(usuario);
         return "redirect:/usuarios";
     }
 }

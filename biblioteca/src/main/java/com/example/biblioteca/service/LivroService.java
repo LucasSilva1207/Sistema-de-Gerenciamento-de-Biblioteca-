@@ -1,7 +1,7 @@
 package com.example.biblioteca.service;
 
-import com.example.biblioteca.model.Livro;
-import com.example.biblioteca.repository.LivroRepository;
+import com.example.biblioteca.model.livro;
+import com.example.biblioteca.repository.livroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,24 +9,26 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class LivroService {
+public class livroService {
 
     @Autowired
-    private LivroRepository livroRepository;
+    private livroRepository livroRepository;
 
-    public Livro salvarLivro(Livro livro) {
+    public livro salvarLivro(livro livro) {
         return livroRepository.save(livro);
     }
 
-    public Optional<Livro> buscarPorId(Long id) {
+    public Optional<livro> buscarPorId(Long id) {
         return livroRepository.findById(id);
     }
 
-    public List<Livro> listarTodos() {
+    public List<livro> listarTodos() {
         return livroRepository.findAll();
     }
 
     public void deletarLivro(Long id) {
         livroRepository.deleteById(id);
     }
+
+    
 }

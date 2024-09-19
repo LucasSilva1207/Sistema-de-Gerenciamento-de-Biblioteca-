@@ -5,32 +5,33 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "emprestimos")
-public class Emprestimo {
+public class emprestimo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
+    private usuario usuario;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "livro_id", nullable = false)
-    private Livro livro;
+    private livro livro;
 
     @Column(nullable = false)
     private LocalDate dataEmprestimo;
 
+    @Column
     private LocalDate dataDevolucao;
 
     @Column(nullable = false)
     private boolean devolvido;
 
     // Construtores
-    public Emprestimo() {}
+    public emprestimo() {}
 
-    public Emprestimo(Usuario usuario, Livro livro, LocalDate dataEmprestimo, boolean devolvido) {
+    public emprestimo(usuario usuario, livro livro, LocalDate dataEmprestimo, boolean devolvido) {
         this.usuario = usuario;
         this.livro = livro;
         this.dataEmprestimo = dataEmprestimo;
@@ -46,19 +47,19 @@ public class Emprestimo {
         this.id = id;
     }
 
-    public Usuario getUsuario() {
+    public usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(usuario usuario) {
         this.usuario = usuario;
     }
 
-    public Livro getLivro() {
+    public livro getLivro() {
         return livro;
     }
 
-    public void setLivro(Livro livro) {
+    public void setLivro(livro livro) {
         this.livro = livro;
     }
 
